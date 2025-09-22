@@ -34,7 +34,7 @@ const AppointmentManagement = () => {
   const filteredAppointments = appointments.filter(appointment => {
     const matchesSearch = appointment.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          appointment.doctorName.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesStatus = !statusFilter || appointment.status === statusFilter;
+    const matchesStatus = !statusFilter || statusFilter === "all-statuses" || appointment.status === statusFilter;
     const matchesDate = !dateFilter || appointment.date === dateFilter;
     
     return matchesSearch && matchesStatus && matchesDate;
@@ -139,7 +139,7 @@ const AppointmentManagement = () => {
                   <SelectValue placeholder="All statuses" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All statuses</SelectItem>
+                  <SelectItem value="all-statuses">All statuses</SelectItem>
                   <SelectItem value="scheduled">Scheduled</SelectItem>
                   <SelectItem value="completed">Completed</SelectItem>
                   <SelectItem value="cancelled">Cancelled</SelectItem>

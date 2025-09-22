@@ -36,8 +36,8 @@ const DoctorManagement = () => {
   const filteredDoctors = doctors.filter(doctor => {
     const matchesSearch = doctor.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          doctor.specialization.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesSpecialization = !specializationFilter || doctor.specialization === specializationFilter;
-    const matchesAvailability = !availabilityFilter || doctor.availability === availabilityFilter;
+    const matchesSpecialization = !specializationFilter || specializationFilter === "all-specializations" || doctor.specialization === specializationFilter;
+    const matchesAvailability = !availabilityFilter || availabilityFilter === "all-statuses" || doctor.availability === availabilityFilter;
     
     return matchesSearch && matchesSpecialization && matchesAvailability;
   });
@@ -89,7 +89,7 @@ const DoctorManagement = () => {
                   <SelectValue placeholder="All specializations" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All specializations</SelectItem>
+                  <SelectItem value="all-specializations">All specializations</SelectItem>
                   {specializations.map(spec => (
                     <SelectItem key={spec} value={spec}>{spec}</SelectItem>
                   ))}
@@ -103,7 +103,7 @@ const DoctorManagement = () => {
                   <SelectValue placeholder="All statuses" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All statuses</SelectItem>
+                  <SelectItem value="all-statuses">All statuses</SelectItem>
                   <SelectItem value="available">Available</SelectItem>
                   <SelectItem value="busy">Busy</SelectItem>
                   <SelectItem value="off-duty">Off Duty</SelectItem>
